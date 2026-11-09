@@ -1,27 +1,27 @@
-// 代理 TMDB 搜索 API
+// 代理 Apple Music (iTunes) 搜索 API
 export default async (request, context) => {
   const url = new URL(request.url);
   const keyword = url.searchParams.get("keyword");
-  const type = url.searchParams.get("type") || "movie"; // movie 或 tv
+  const limit = url.searchParams.get("limit") || "20";
 
   if (!keyword) {
     return new Response(JSON.stringify({ error: "Missing keyword" }), {
       status: 400,
       headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
-    }); 
+    });
   }
 
-const API_KEY = "d36945bfacea17f668c41e4d07e37bbc";
-  const tmdbUrl = `https://api.themoviedb.org/3/search/${type}?query=${encodeURIComponent(keyword)}&language=zh-CN&api_key=${API_KEY}`;
+  // entity=song 代表搜索单曲，country=cn 代表优先搜国内曲库
+  const appleUrl = `https://itunes.apple.com/search?term=${encodeURIComponent(keyword)}&entity=song&limit=${limit}&country=cn`;
 
   try {
-    const response = await fetch(tmdbUrl);
+    const response = await fetch(appleUrl);
     const data = await response.json();
 
     return new Response(JSON.stringify(data), {
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*", // 允许你的前端跨域访问
+        "Access-Control-Allow-Origin": "*",
       },
     });
   } catch (error) {
