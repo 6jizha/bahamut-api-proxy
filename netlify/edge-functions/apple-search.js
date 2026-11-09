@@ -1,33 +1,27 @@
-// 代理 Apple Music (iTunes) 搜索 API
-export default async (request, context) => {
-  const url = new URL(request.url);
-  const keyword = url.searchParams.get("keyword");
-  const limit = url.searchParams.get("limit") || "20";
-
-  if (!keyword) {
-    return new Response(JSON.stringify({ error: "Missing keyword" }), {
-      status: 400,
-      headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
-    });
+// Vercel 版 Apple Music 搜索代理
+export default async function handler(req, res) {
+  // 处理跨域
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
   }
 
-  // entity=song 代表搜索单曲，country=cn 代表优先搜国内曲库
+  const keyword = req.query.keyword;
+  const limit = req.query.limit || "20";
+
+  if (!keyword) {
+    return res.status(400).json({ error: "Missing keyword" });
+  }
+
   const appleUrl = `https://itunes.apple.com/search?term=${encodeURIComponent(keyword)}&entity=song&limit=${limit}&country=cn`;
 
   try {
     const response = await fetch(appleUrl);
     const data = await response.json();
-
-    return new Response(JSON.stringify(data), {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    });
+    return res.status(200).json(data);
   } catch (error) {
-    return new Response(JSON.stringify({ error: "Proxy fetch failed" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
-    });
+    return res.status(500).json({ error: "Proxy fetch failed" });
   }
-};
+}
