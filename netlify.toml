@@ -5,3 +5,8 @@
 [[edge_functions]]
   path = "/api/bangumi-img/*"
   function = "bangumi"
+
+
+[[edge_functions]]
+  path = "/tmdb-search"
+  function = "tmdb-search"
