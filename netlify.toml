@@ -16,7 +16,9 @@
   path = "/netease-search"
   function = "netease-search"
 
-
+[[edge_functions]]
+  path = "/netease-img"
+  function = "netease-img"
 
 
 
