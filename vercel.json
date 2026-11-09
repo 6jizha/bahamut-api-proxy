@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "source": "/apple-search", "destination": "/netlify/edge-functions/apple-search" }
+    { "source": "/apple-search", "destination": "/api/apple-search" }
   ]
 }
