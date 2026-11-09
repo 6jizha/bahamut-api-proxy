@@ -17,6 +17,9 @@
   function = "netease-search"
 
 
+
+
+
 [[edge_functions]]
-  path = "/openlibrary-search"
-  function = "openlibrary-search"
+  path = "/googlebooks-search"
+  function = "googlebooks-search"
