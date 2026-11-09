@@ -12,7 +12,7 @@ export default async (request, context) => {
   }
 
   // ⚠️ 这里填入你在 TMDB 申请的 API Key
-  const API_KEY = "你的_TMDB_API_KEY"; 
+  const API_KEY = "16d5af2a8fb5d07dbdb840e40e5cfb3a"; 
   const tmdbUrl = `https://api.themoviedb.org/3/search/${type}?query=${encodeURIComponent(keyword)}&language=zh-CN&api_key=${API_KEY}`;
 
   try {
