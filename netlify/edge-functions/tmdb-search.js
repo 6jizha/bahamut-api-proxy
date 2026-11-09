@@ -11,7 +11,6 @@ export default async (request, context) => {
     });
   }
 
-  // entity=song 代表搜索单曲，country=cn 代表优先搜国内曲库
   const appleUrl = `https://itunes.apple.com/search?term=${encodeURIComponent(keyword)}&entity=song&limit=${limit}&country=cn`;
 
   try {
