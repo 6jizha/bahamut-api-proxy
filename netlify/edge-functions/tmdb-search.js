@@ -8,7 +8,7 @@ export default async (request, context) => {
     return new Response(JSON.stringify({ error: "Missing keyword" }), {
       status: 400,
       headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
-    });
+    }); 
   }
 
 const API_KEY = "d36945bfacea17f668c41e4d07e37bbc";
